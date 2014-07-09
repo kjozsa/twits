@@ -1,0 +1,12 @@
+target/
+.cache
+.project
+.settings/
+*log
+.classpath
+*swp
+
+.idea
+.idea_modules
+twitter4j.properties
+
