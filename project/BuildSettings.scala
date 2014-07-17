@@ -7,7 +7,7 @@ object BuildSettings {
     version := "1.0.0",
     organization := "org.dyn.twits",
 
-    scalaVersion := "2.10.4",
+    scalaVersion := Version.scala,
 
     scalacOptions := Seq(
       "-encoding", "utf8",
