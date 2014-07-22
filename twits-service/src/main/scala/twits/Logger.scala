@@ -2,7 +2,7 @@ package twits
 
 import org.slf4j.LoggerFactory
 
-class Logger {
+trait Logger {
   lazy val logger = LoggerFactory.getLogger(getClass)
 
 }

@@ -2,7 +2,7 @@ package twits
 
 import twitter4j._
 
-object TwitStreamer extends Logger {
+object TwitStreamer extends TwitsActorSystem with Logger {
   var stream: TwitterStream = _
 
   def bootstrap() {
@@ -10,10 +10,10 @@ object TwitStreamer extends Logger {
 
     val twitter = TwitterFactory.getSingleton()
     stream = new TwitterStreamFactory(twitter.getConfiguration).getInstance()
+
     stream.addListener(new StatusAdapter {
       override def onStatus(status: Status): Unit = {
-        if (status.getText.toLowerCase.contains("scala"))
-          logger.debug(s"${status.getLang} # ${status.getUser.getScreenName}: ${status.getText}")
+        publish(Message(status))
       }
     })
 
@@ -24,5 +24,8 @@ object TwitStreamer extends Logger {
   def shutdown() {
     logger.info("Shutting down streamer")
     stream.shutdown()
+
+    logger.info("Shutting down actor system")
+    system.shutdown()
   }
 }
