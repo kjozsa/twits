@@ -7,10 +7,6 @@ object Build extends Build {
 
   import BuildSettings._
 
-  //  override lazy val settings = super.settings :+ {
-  //    shellPrompt := { s => "[" + scala.Console.CYAN + Project.extract(s).currentProject.id + scala.Console.RESET + "] $ "}
-  //  }
-
   lazy val container = Container("container")
 
   lazy val twits_root = Project(
@@ -19,12 +15,22 @@ object Build extends Build {
     settings = basicSettings ++ container.deploy(
       "/" -> twits_web
     )
-  ).settings(libraryDependencies ++= Dependencies.twits_root)
+  )
+    .settings(libraryDependencies ++= Dependencies.twits_root)
+    .aggregate(twits_service, twits_web)
+
+  lazy val twits_service = Project(
+    id = "twits-service",
+    base = file("twits-service"),
+    settings = basicSettings
+  ).settings(libraryDependencies ++= Dependencies.twits_service)
 
   lazy val twits_web = Project(
     id = "twits-web",
     base = file("twits-web"),
     settings = basicSettings ++ webappSettings
-  ).settings(libraryDependencies ++= Dependencies.twits_web)
+  )
+    .settings(libraryDependencies ++= Dependencies.twits_web)
+    .dependsOn(twits_service)
 
 }

@@ -26,11 +26,14 @@ object Dependencies {
     "org.eclipse.jetty" % "jetty-webapp" % Version.jetty % "container"
   )
 
+  val twits_service = List(
+    "org.twitter4j" % "twitter4j-core" % Version.twitter4j,
+    "org.twitter4j" % "twitter4j-stream" % Version.twitter4j
+  )
+
   val twits_web = List(
     "net.liftweb" %% "lift-webkit" % Version.liftweb,
     "javax.servlet" % "javax.servlet-api" % Version.servlet_api % "provided",
-    "ch.qos.logback" % "logback-classic" % Version.logback,
-    "org.twitter4j" % "twitter4j-core" % Version.twitter4j,
-    "org.twitter4j" % "twitter4j-stream" % Version.twitter4j
+    "ch.qos.logback" % "logback-classic" % Version.logback
   )
 }

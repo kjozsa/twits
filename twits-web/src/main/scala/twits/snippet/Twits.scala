@@ -1,4 +1,4 @@
-package tws.snippet
+package twits.snippet
 
 import net.liftweb.util._
 import Helpers._

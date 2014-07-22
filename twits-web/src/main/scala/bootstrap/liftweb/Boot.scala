@@ -1,11 +1,9 @@
 package bootstrap.liftweb
 
 import net.liftweb._
-import common._
-import http._
-import java.sql.DriverManager
-import net.liftweb.common.Logger
-import util.Props
+import net.liftweb.common.{Logger, _}
+import net.liftweb.http._
+import twits.TwitStreamer
 
 /**
  * A class that's instantiated early and run.  It allows the application
@@ -15,7 +13,7 @@ class Boot extends Logger {
 
   def boot() {
     // where to search snippet
-    LiftRules.addToPackages("tws")
+    LiftRules.addToPackages("twits")
 
     //    // Show the spinny image when an Ajax call starts
     LiftRules.ajaxStart = Full(() => LiftRules.jsArtifacts.show("ajax-loader").cmd)
@@ -28,6 +26,10 @@ class Boot extends Logger {
 
     // Use HTML5 for rendering
     LiftRules.htmlProperties.default.set((r: Req) => new Html5Properties(r.userAgent))
+
+    TwitStreamer.bootstrap()
+
+    LiftRules.unloadHooks append (() => TwitStreamer.shutdown())
 
     //    LiftRules.setSiteMapFunc(MenuInfo.sitemap)
   }
