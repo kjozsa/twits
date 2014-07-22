@@ -1,7 +1,6 @@
 import sbt._
 
 object Version {
-
   val scala = "2.11.1"
   val akka = "2.3.4"
   val jetty = "9.2.1.v20140609"
@@ -10,13 +9,7 @@ object Version {
   val servlet_api = "3.0.1"
 }
 
-object Library {
-}
-
 object Dependencies {
-
-  import Library._
-
   val twits_root = List(
     "org.eclipse.jetty" % "jetty-webapp" % Version.jetty % "container"
   )
