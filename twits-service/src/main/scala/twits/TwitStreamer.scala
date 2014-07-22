@@ -2,7 +2,7 @@ package twits
 
 import twitter4j._
 
-object TwitStreamer extends App {
+object TwitStreamer extends Logger {
   var stream: TwitterStream = _
 
   def bootstrap() {
@@ -12,19 +12,17 @@ object TwitStreamer extends App {
     stream = new TwitterStreamFactory(twitter.getConfiguration).getInstance()
     stream.addListener(new StatusAdapter {
       override def onStatus(status: Status): Unit = {
-        if (status.getText.toLowerCase.contains("android"))
-          println(s"${status.getLang} # ${status.getUser.getScreenName}: ${status.getText}")
+        if (status.getText.toLowerCase.contains("scala"))
+          logger.debug(s"${status.getLang} # ${status.getUser.getScreenName}: ${status.getText}")
       }
     })
 
+    logger.info("starting twitter stream")
     stream.sample()
   }
 
-
   def shutdown() {
-    println("Shutting down streamer")
+    logger.info("Shutting down streamer")
     stream.shutdown()
   }
-
-//  bootstrap()
 }
