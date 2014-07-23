@@ -1,18 +1,20 @@
 package twits.actor
 
+import akka.actor.ActorRef
 import twitter4j.Status
 
 import scala.concurrent.ExecutionContext
 
-class Counter(executionContext: ExecutionContext) extends ReportActor(executionContext) {
+class Counter(liftBridge: ActorRef, executionContext: ExecutionContext) extends ReportActor(liftBridge, executionContext) {
   var count = 0
 
   def onStatus(status: Status) {
     count += 1
   }
 
-  def report() {
-      logger.info("{} messages per second", count)
+  def report() = {
+      val message = s"${count} messages per second"
       count = 0
+      message
   }
 }

@@ -20,7 +20,9 @@ object Dependencies {
     "com.typesafe.akka" %% "akka-contrib" % Version.akka,
 
     "org.twitter4j" % "twitter4j-core" % Version.twitter4j,
-    "org.twitter4j" % "twitter4j-stream" % Version.twitter4j
+    "org.twitter4j" % "twitter4j-stream" % Version.twitter4j,
+
+    "net.liftweb" %% "lift-webkit" % Version.liftweb
   )
 
   val twits_web = List(

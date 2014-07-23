@@ -1,14 +1,18 @@
 package twits.actor
 
-import akka.actor.Actor
-import twits.{Message, Logger}
+import akka.actor.{Actor, ActorRef}
+import twits.{Logger, Message}
 import twitter4j.Status
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
 
-abstract class ReportActor(executionContext: ExecutionContext) extends Actor with Logger {
-  object Report
+
+/**
+ * base class for all reporting actors - sends reports to Lift comet actor using LiftBridgeActor
+ */
+abstract class ReportActor(liftBridge: ActorRef, executionContext: ExecutionContext) extends Actor with Logger {
+  private object Report
 
   override def preStart(): Unit = {
     implicit val ec = executionContext
@@ -17,13 +21,12 @@ abstract class ReportActor(executionContext: ExecutionContext) extends Actor wit
 
   override def receive = {
     case Message(status) => onStatus(status)
-    case Report => report()
+    case Report => liftBridge ! CometMessage(self.path.name, report())
   }
 
   def onStatus(status: Status)
 
-  def report()
-
+  def report(): String
 }
 
 
