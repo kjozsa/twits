@@ -13,8 +13,7 @@ class HashtagCollector(liftBridge: ActorRef, executionContext: ExecutionContext)
       status.getHashtagEntities.foreach(hashtag => stats(hashtag.getText) += 1)
   }
 
-  def report() = {
-    "Top 3 hashtags: " + stats.toList.sortBy({_._2}).reverse.take(3).mkString(",")
-  }
+  def report() =
+    "Top 10 hashtags: " + stats.toList.sortBy({_._2}).reverse.take(10).mkString(",")
 
 }

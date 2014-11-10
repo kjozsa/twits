@@ -1,11 +1,10 @@
 package twits.snippet
 
-import net.liftweb.util._
-import Helpers._
-import twitter4j.{Status, ResponseList, Paging, TwitterFactory}
-import scala.language.postfixOps
-import scala.language.implicitConversions
-import collection.JavaConversions._
+import net.liftweb.util.Helpers._
+import twitter4j.{Paging, TwitterFactory}
+
+import scala.collection.JavaConversions._
+import scala.language.{implicitConversions, postfixOps}
 import scala.xml._
 
 class Twits {

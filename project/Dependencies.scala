@@ -1,10 +1,10 @@
 import sbt._
 
 object Version {
-  val scala = "2.11.1"
-  val akka = "2.3.4"
-  val jetty = "9.2.1.v20140609"
-  val liftweb = "2.6-M4"
+  val scala = "2.11.4"
+  val akka = "2.3.6"
+  val jetty = "9.2.4.v20141103"
+  val liftweb = "3.0-M2"
   val twitter4j = "4.0.2"
   val servlet_api = "3.0.1"
 }
